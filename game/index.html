@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sky Courier — a bush-plane game in Kestrel Valley</title>
+<style>
+  html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; background: #0a141f; }
+  #scene, #scene canvas { position: absolute; inset: 0; display: block; }
+  #hud { position: absolute; inset: 0; pointer-events: none; }
+  #loading {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    color: #dcecff; font: 600 18px "Avenir Next", "Segoe UI", system-ui, sans-serif;
+    background: #0a141f; z-index: 2;
+  }
+</style>
+<script type="importmap">
+  { "imports": { "three": "./vendor/three.module.min.js" } }
+</script>
+</head>
+<body>
+<div id="scene"></div>
+<canvas id="hud"></canvas>
+<div id="loading">Warming up the Kestrel…</div>
+<script type="module">
+  import './src/main.js';
+  document.getElementById('loading').remove();
+  setTimeout(() => { if (window.__skyDebug) document.title = window.__skyDebug(); }, 5000);
+</script>
+</body>
+</html>

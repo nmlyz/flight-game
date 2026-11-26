@@ -1,0 +1,23 @@
+<!DOCTYPE html><html><body style="margin:0">
+<iframe id="f" src="/?debug=1" style="width:1280px;height:800px;border:0"></iframe>
+<pre id="log">waiting…</pre>
+<script>
+const log = [];
+function note(s) { log.push(s); document.getElementById('log').textContent = log.join('\n'); }
+function key(code, down) {
+  const w = document.getElementById('f').contentWindow;
+  w.dispatchEvent(new w.KeyboardEvent(down ? 'keydown' : 'keyup', { code, bubbles: true }));
+}
+const f = document.getElementById('f');
+f.onload = () => {
+  setTimeout(() => { key('Digit1', true); key('Digit1', false); note('mission 1 started'); }, 800);
+  setTimeout(() => { key('KeyW', true); note('throttle up'); }, 1500);
+  setTimeout(() => { key('ArrowUp', true); note('pull up'); }, 3500);
+  setTimeout(() => { key('ArrowUp', false); }, 6500);
+  setTimeout(() => {
+    const w = f.contentWindow;
+    note('debug: ' + (w.__skyDebug ? w.__skyDebug() : 'no hook'));
+    document.title = 'AUTOTEST-DONE';
+  }, 12000);
+};
+</script></body></html>
